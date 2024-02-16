@@ -29,7 +29,7 @@ Get your Lindle API key from <a href="https://chrome.google.com/webstore/detail/
 
 ```
 $apiKey = "YOUR_API";
-$lindle = Lindle($apiKey);
+$lindle = new Lindle($apiKey);
 ```
 
 ## Get Links
@@ -37,8 +37,9 @@ $lindle = Lindle($apiKey);
 $links = $lindle->getLinks();
 print_r($links);
 
-
 ```
+
+
 ## Get Folders
 ```
 $folders = $lindle->getFolders();
