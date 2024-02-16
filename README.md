@@ -35,19 +35,20 @@ $lindle = Lindle($apiKey);
 ## Get Links
 ```
 $links = $lindle->getLinks();
+print_r($links);
+
 
 ```
-
-
 ## Get Folders
 ```
-$folders = $lindle->getFolders()
+$folders = $lindle->getFolders();
+print_r($folders);
 ```
 
 
 ## Get Synced Bookmarks
 ```
-$data = $lindle->getSyncedBookmarks()
-// $data->folders
-// $data->links
+$data = $lindle->getSyncedBookmarks();
+print_r($data['links']);
+print_r($data['folders']);
 ```

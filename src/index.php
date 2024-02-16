@@ -15,11 +15,12 @@ class Lindle
     {
         $headers = ["Authorization" => "Bearer {$this->api_key}"];
         $res = json_decode($this->makeRequest("GET", "https://www.lindle.me/api/user", $headers), true);
+
         return [
-            "id" => $res["_id"],
-            "name" => $res["name"],
-            "image" => $res["image"],
-            "linkLimit" => $res["count"],
+            "id" => $res['_id'],
+            "name" => $res['name'],
+            "image" => $res['image'],
+            "linkLimit" => $res['count'],
         ];
     }
 
@@ -158,6 +159,11 @@ class Lindle
     {
         $curl = curl_init();
 
+        // Disable SSL (Not Recommended) - https://cheapsslsecurity.com/blog/ssl-certificate-problem-unable-to-get-local-issuer-certificate/
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+
+
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
@@ -182,7 +188,8 @@ class Lindle
         }
 
         curl_close($curl);
-
         return $response;
     }
 }
+
+
