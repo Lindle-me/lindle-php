@@ -14,7 +14,7 @@ class Lindle
     public function getUser()
     {
         $headers = ["Authorization" => "Bearer {$this->api_key}"];
-        $res = json_decode($this->makeRequest("GET", "https://www.lindle.me/api/user", $headers), true);
+        $res = json_decode($this->makeRequest("GET", "https://api.lindle.me/api/user", $headers), true);
 
         return [
             "id" => $res['_id'],
@@ -27,7 +27,7 @@ class Lindle
     public function getLinks()
     {
         $headers = ["Authorization" => "Bearer {$this->api_key}"];
-        $res = json_decode($this->makeRequest("GET", "https://www.lindle.me/api/links", $headers), true);
+        $res = json_decode($this->makeRequest("GET", "https://api.lindle.me/api/links", $headers), true);
         $links = [];
         foreach ($res as $item) {
             $links[] = [
@@ -44,7 +44,7 @@ class Lindle
     public function getFolders($with_links = false)
     {
         $headers = ["Authorization" => "Bearer {$this->api_key}"];
-        $res = json_decode($this->makeRequest("GET", "https://www.lindle.me/api/folders", $headers), true);
+        $res = json_decode($this->makeRequest("GET", "https://api.lindle.me/api/folders", $headers), true);
         $folders = [];
         $links = $with_links ? $this->getLinks() : [];
         foreach ($res as $item) {
@@ -72,7 +72,7 @@ class Lindle
     public function getSyncedBookmarks()
     {
         $headers = ["Authorization" => "Bearer {$this->api_key}"];
-        $res = json_decode($this->makeRequest("GET", "https://www.lindle.me/api/links/bookmarks/sync", $headers), true);
+        $res = json_decode($this->makeRequest("GET", "https://api.lindle.me/api/links/bookmarks/sync", $headers), true);
         $folders = array_map(function ($item) {
             return [
                 "id" => $item["id"],
@@ -101,7 +101,7 @@ class Lindle
     {
         $headers = ["Authorization" => "Bearer {$this->api_key}"];
         $data = ["name" => $name, "url" => $url, "folder" => $folder, "favourite" => $favourite];
-        $res = json_decode($this->makeRequest("POST", "https://www.lindle.me/api/links", $headers, json_encode($data)), true);
+        $res = json_decode($this->makeRequest("POST", "https://api.lindle.me/api/links", $headers, json_encode($data)), true);
         $item = $res["link"] ?? [];
         $link = [
             "id" => $item["_id"] ?? "",
@@ -117,7 +117,7 @@ class Lindle
     {
         $headers = ["Authorization" => "Bearer {$this->api_key}"];
         $data = ["name" => $name, "public" => $public_folder];
-        $res = json_decode($this->makeRequest("POST", "https://www.lindle.me/api/folders", $headers, json_encode($data)), true);
+        $res = json_decode($this->makeRequest("POST", "https://api.lindle.me/api/folders", $headers, json_encode($data)), true);
         return $res;
     }
 
@@ -127,7 +127,7 @@ class Lindle
     {
         $headers = ["Authorization" => "Bearer {$this->api_key}"];
         $data = ["name" => $name, "url" => $url, "folder" => $folder, "favourite" => $favourite];
-        $res = json_decode($this->makeRequest("PATCH", "https://www.lindle.me/api/links/{$link_id}", $headers, json_encode($data)), true);
+        $res = json_decode($this->makeRequest("PATCH", "https://api.lindle.me/api/links/{$link_id}", $headers, json_encode($data)), true);
         return $res;
     }
 
@@ -135,7 +135,7 @@ class Lindle
     {
         $headers = ["Authorization" => "Bearer {$this->api_key}"];
         $data = ["name" => $name, "public" => $public_folder];
-        $res = json_decode($this->makeRequest("PATCH", "https://www.lindle.me/api/folders/{$folder_id}", $headers, json_encode($data)), true);
+        $res = json_decode($this->makeRequest("PATCH", "https://api.lindle.me/api/folders/{$folder_id}", $headers, json_encode($data)), true);
         return $res;
     }
 
@@ -144,14 +144,14 @@ class Lindle
     public function deleteLink($link_id)
     {
         $headers = ["Authorization" => "Bearer {$this->api_key}"];
-        $res = json_decode($this->makeRequest("DELETE", "https://www.lindle.me/api/links/{$link_id}", $headers), true);
+        $res = json_decode($this->makeRequest("DELETE", "https://api.lindle.me/api/links/{$link_id}", $headers), true);
         return $res;
     }
 
     public function deleteFolder($folder_id)
     {
         $headers = ["Authorization" => "Bearer {$this->api_key}"];
-        $res = json_decode($this->makeRequest("DELETE", "https://www.lindle.me/api/folders/{$folder_id}", $headers), true);
+        $res = json_decode($this->makeRequest("DELETE", "https://api.lindle.me/api/folders/{$folder_id}", $headers), true);
         return $res;
     }
 
